@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Exercicio 02</title>
+    <style>
+        body {
+            background-color: rgb(126, 126, 221);
+            font-family: sans-serif
+        }
+        header h1{
+            text-align: center;
+        }
+        section {
+            background-color: white;
+            border-radius: 5px;
+            padding: 15px;
+            margin: auto;
+            width: 60%;
+        }
+        div {
+            text-align: center;
+        }
+        footer {
+            text-align: center;
+            font-style: italic
+        }
+        #foto {
+            border-radius: 50%;
+            margin: 20px;
+            transition: 0.5s ease-in-out;
+        }
+        #foto:hover {
+            box-shadow: 0px 0px 30px rgb(238, 21, 5);
+        }
+        label {
+            transition: 0.3s ease;
+        }
+        label:hover{
+            text-shadow: 2px 3px 3px black;
+        }
+        input#verificar{
+            padding: 7px;
+            font-weight: bold;
+            transition: 0.3s ease-in;
+            background-color: white;
+            border: 2px solid black;
+            box-shadow: 0px 0px 5px rgba(114, 109, 109, 0.986);
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        input#verificar:hover {
+            background-color: black;
+            border: 2px solid white;
+            box-shadow: 0px 0px 5px rgba(114, 109, 109, 0.986);
+            color: white;
+        }
+    </style>
+</head>
+<body>  
+    <header>
+        <h1>Verificando Idade</h1>
+    </header>
+    <section>
+        <div>
+            <p>Ano de Nascimento:
+                <input type="number" name="nascimento" id="nascimento" min="1910" placeholder="Ex: 2000">
+            </p>
+            <p>Sexo:
+                <!-- Campo de Escolha Masculino -->
+                <input type="radio" name="radsex" id="masc" checked>
+                <label for="masc">Masculino</label>
+                <!-- Campo de Escolha Feminino -->
+                <input type="radio" name="radsex" id="fem">
+                <label for="fem">Feminino</label>
+            </p>
+            <p>
+                <input id="verificar" type="button" value="Verificar" onclick="verificar()">
+            </p>
+        </div>
+        <div id="res">
+
+        </div>
+    </section>
+    <footer>
+        <p>&copy; CursoemVideo</p>
+    </footer>
+    
+    <script>
+        function verificar() {
+            var data = new Date();
+            var anoAtual = data.getFullYear();
+            var anoNasc = document.getElementById("nascimento").value;
+            var res = document.getElementById("res");
+            var idade = anoAtual - Number(anoNasc);
+
+            if(anoNasc == 0 || anoNasc >= anoAtual) {
+                alert("Erro, Campo inválido.")
+            } else if(anoNasc <= 1910){
+                alert(`Erro, Não acho que você tenha ${idade} anos de idade.`)
+            }else {
+                var fsex = document.getElementsByName("radsex");
+                var genero;
+                // Cria um elemento img e adiciona um id=foto
+                var img = document.createElement("img")
+                img.setAttribute("id", "foto")
+                img.setAttribute("width", "300")
+                img.setAttribute("height", "300")
+
+                if(fsex[0].checked) {
+                    genero = "Homem"
+                    if(idade > 0 && idade < 12) {
+                        // Criança
+                        img.setAttribute("src", "https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=format%2Ccompress&cs=tinysrgb&dpr=2&h=650&w=940")
+                        
+                    } else if(idade < 21) {
+                        // Jovem
+                        img.setAttribute("src", "https://images.pexels.com/photos/1553783/pexels-photo-1553783.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
+                    } else if(idade < 50) {
+                        // Adulto
+                        img.setAttribute("src", "https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
+                    } else {
+                        // Idoso
+                        img.setAttribute("src", "https://images.pexels.com/photos/1837922/pexels-photo-1837922.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
+                    }
+                } else {
+                    genero = "Mulher"
+                    if(idade >= 0 && idade < 12) {
+                        // Criança
+                        img.setAttribute("src", "https://images.pexels.com/photos/1680364/pexels-photo-1680364.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500")
+                    } else if(idade < 21) {
+                        // Jovem
+                        img.setAttribute("src", "https://images.pexels.com/photos/1545565/pexels-photo-1545565.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
+                    } else if(idade < 50) {
+                        // Adulto
+                        img.setAttribute("src", "https://images.pexels.com/photos/905913/pexels-photo-905913.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
+                    } else {
+                        // Idoso
+                        img.setAttribute("src", "https://images.pexels.com/photos/432722/pexels-photo-432722.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
+                    }
+                }
+                
+                res.innerHTML = `Detectamos ${genero} com ${idade} anos de idade.<br>`
+                // Adiciona um elemento Child de res no HTML
+                res.appendChild(img)
+            }
+        }
+    </script>
+</body>
+</html>
